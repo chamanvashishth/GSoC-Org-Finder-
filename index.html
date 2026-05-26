@@ -789,7 +789,7 @@
     <div class="flex items-center gap-2 sm:gap-3">
     
       <button id="themeToggleBtn" onclick="toggleTheme()"
-        class="inline-flex shrink-0 items-center justify-center p-2 hover:bg-zinc-100/50 rounded-full transition-colors"
+        class="theme-toggle-btn inline-flex shrink-0 items-center justify-center p-2 hover:bg-zinc-100/50 rounded-full transition-colors"
         aria-label="Switch to dark theme" aria-pressed="false" title="Switch to dark theme">
     
         <span class="material-symbols-outlined text-zinc-600">
@@ -880,6 +880,12 @@
         <span class="material-symbols-outlined text-lg">menu_book</span>
         Guide
       </a>
+      <button onclick="toggleTheme()"
+        class="theme-toggle-btn flex items-center gap-3 w-full px-4 py-3 rounded-lg text-zinc-700 hover:bg-zinc-100 font-medium text-sm transition-colors"
+        aria-label="Switch to dark theme" aria-pressed="false" title="Switch to dark theme">
+        <span class="material-symbols-outlined text-lg">dark_mode</span>
+        Theme
+      </button>
     </div>
     
     <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-zinc-100">
@@ -1685,15 +1691,16 @@
   };
 
   function updateThemeIcon(){
-    const btn = document.getElementById('themeToggleBtn');
-    const icon = btn ? btn.querySelector('.material-symbols-outlined') : null;
-    if(icon){
-      const isDark = document.documentElement.classList.contains('dark');
-      icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+    const isDark = document.documentElement.classList.contains('dark');
+    const toggleButtons = document.querySelectorAll('.theme-toggle-btn');
+
+    toggleButtons.forEach((btn) => {
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon) icon.textContent = isDark ? 'light_mode' : 'dark_mode';
       btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
       btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
       btn.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
-    }
+    });
   }
 
   // ══════════════════════════════════════════════
